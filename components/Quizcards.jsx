@@ -1,43 +1,47 @@
 import styled from "styled-components";
 import bookmark from "../images/bookmark.svg";
 
-function Quizcards(allQuestions) {
+function Quizcards({ allQuestions }) {
   const random = (a, b) => 0.5 * Math.random();
 
   return (
-    <AppCard>
-      {allQuestions.length &&
-        allQuestions?.map((question) => {
-          <section className='card'>
-            <h3 className='card__h2'>Category: {question.category}</h3>
-            <button id='q2' className='card__fav'>
-              <img src='hi' />
-            </button>
-            <h4 className='card__h3'>{question.question}</h4>
-            <ul className='card__tag'>
-              {Object.values(question.answers)
-                .sort(random)
-                .map((answer) => (
-                  <li>{answer}</li>
-                ))}
-            </ul>
-          </section>;
-        })}
-    </AppCard>
+    <>
+      {allQuestions?.map((question, index) => (
+        <AppCard key={index}>
+          <h3 className='card__h2'>Category: {question.category}</h3>
+          <button id='q2' className='card__fav'>
+            <img src={bookmark} />
+          </button>
+          <h4 className='card__h3'>{question.question}</h4>
+          <ul className='card__tag'>
+            {Object.values(question.answers)
+              .sort(random)
+              .map((answer, index) => (
+                <li key={index}>{answer}</li>
+              ))}
+          </ul>
+        </AppCard>
+      ))}
+    </>
   );
 }
 
 export default Quizcards;
 
 const AppCard = styled.section`
-  margin: 100px 20px 60px 20px;
-  font-size: 16px;
+  :first-of-type {
+    margin-top: 7rem;
+  }
+  :last-of-type {
+    margin-bottom: 7rem;
+  }
+  margin: 2rem 1rem;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 40px;
+  border-radius: 1rem;
+  padding: 1rem;
   background-color: var(--third-c);
   color: black;
   box-shadow: 3px 3px 5px #6b6b6b;
@@ -74,11 +78,6 @@ const AppCard = styled.section`
   }
 
   .card__fav:hover {
-    background-image: url("");
-    background-size: 100%;
-  }
-
-  .card__fav:focus {
     background-image: url("");
     background-size: 100%;
   }
