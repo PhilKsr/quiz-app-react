@@ -1,0 +1,31 @@
+:root {
+  --primary: #bee1e6;
+  --secondary: #f0efeb;
+  --third-c: #fff1e6;
+  --wrong-c: #fad2e1;
+  --correct-c: #bae5c8;
+}
+
+*,
+*::behtmlfore,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  font-size: 1.25rem;
+  font-family: "NTR", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary);
+  font-family: "Patrick Hand", cursive;
+}
