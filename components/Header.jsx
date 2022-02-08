@@ -27,7 +27,7 @@ const AppHeader = styled.header`
   top: 0;
   width: 100%;
   height: 80px;
-  z-index: 90;
+  z-index: 100;
 
   h2 {
     background-color: white;

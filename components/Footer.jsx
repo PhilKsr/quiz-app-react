@@ -40,6 +40,7 @@ export default Footer;
 
 const AppFooter = styled.footer`
   position: fixed;
+  z-index: 100;
   bottom: 0;
   width: 100%;
 
