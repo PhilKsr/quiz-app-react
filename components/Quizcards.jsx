@@ -12,10 +12,10 @@ function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
           <h3 className='card__h2'>Category: {question.category}</h3>
           <button
             className='card__fav card__fav--new'
-            onClick={onAddToFavourites(question)}>
+            onClick={() => onAddToFavourites(question)}>
             <img
               src={
-                allFavourites.some(
+                allFavourites?.some(
                   (favQuestion) => favQuestion.question === question.question
                 )
                   ? favouriteBookmark
