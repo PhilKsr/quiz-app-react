@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [questions, setQuestions] = useState();
+  const [favourites, setFavourites] = useState([]);
 
   async function initialQuestions() {
     const res = await fetch(
@@ -34,12 +35,37 @@ function App() {
     initialQuestions();
   }, []);
 
+  const addToFavourites = (favQuestion) => {
+    if (
+      favourites.some(
+        (favourite) => favourite.question === favQuestion.question
+      )
+    ) {
+      setFavourites(
+        favourites.filter(
+          (favourite) => favourite.question !== favQuestion.question
+        )
+      );
+    } else {
+      setFavourites([...favourites, favQuestion]);
+    }
+  };
+
   return (
     <div className='App'>
       <Header />
       <Footer />
       <Routes>
-        <Route path='/' element={<Quizcards allQuestions={questions} />} />
+        <Route
+          path='/'
+          element={
+            <Quizcards
+              allQuestions={questions}
+              onAddToFavourites={addToFavourites}
+              allFavourites={favourites}
+            />
+          }
+        />
         <Route path='/bookmarks' element={<Bookmarks />} />
         <Route path='/new-card' element={<NewCard />} />
         <Route path='/profile' element={<Profile />} />
