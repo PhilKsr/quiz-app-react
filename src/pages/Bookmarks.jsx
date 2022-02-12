@@ -1,41 +1,57 @@
 import styled from "styled-components";
+import bookmark_inactive from "../images/bookmark_inactive.svg";
+import bookmark_active from "../images/bookmark_active.svg";
+import { random } from "../lib/sortRandom";
 
-function Bookmarks() {
+function Bookmarks({ onAddToFavourites, allFavourites }) {
   return (
-    <AppFavourite className='card'>
-      <h3 className='card__h2'>Question 2</h3>
-      <button id='q2' className='card__fav'>
-        <img src='Bild' />
-      </button>
-      <h4 className='card__h3'>
-        Which two words traditionally appear onscreen at the termination of a
-        feature film?
-      </h4>
-      <ul className='card__tag'>
-        <li className='card__correct'>The End</li>
-        <li>The conclusion</li>
-        <li>The Finish</li>
-        <li>The Pizza-rolls are done</li>
-      </ul>
-      <details className='card__answer'>
-        <summary>Hint</summary>
-        <p>The moment we hope D. is also correct.</p>
-      </details>
-    </AppFavourite>
+    <>
+      {allFavourites?.map((question, index) => (
+        <AppFavourite className='card' key={index}>
+          <h3 className='card__h2'>Category: {question.category}</h3>
+          <button
+            className='card__fav card__fav--new'
+            onClick={() => onAddToFavourites(question)}>
+            <img
+              src={
+                allFavourites?.some(
+                  (favQuestion) => favQuestion.question === question.question
+                )
+                  ? bookmark_active
+                  : bookmark_inactive
+              }
+            />
+          </button>
+          <h4 className='card__h3'>{question.question}</h4>
+          <ul className='card__tag'>
+            {Object.values(question.answers)
+              .sort(random)
+              .map((answer, index) => (
+                <li key={index}>{answer}</li>
+              ))}
+          </ul>
+        </AppFavourite>
+      ))}
+    </>
   );
 }
 
 export default Bookmarks;
 
 const AppFavourite = styled.section`
-  margin: 100px 20px 60px 20px;
-  font-size: 16px;
+  :first-of-type {
+    margin-top: 7rem;
+  }
+  :last-of-type {
+    margin-bottom: 7rem;
+  }
+  margin: 2rem 1rem;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 40px;
+  border-radius: 1rem;
+  padding: 1rem;
   background-color: var(--third-c);
   color: black;
   box-shadow: 3px 3px 5px #6b6b6b;
@@ -66,18 +82,14 @@ const AppFavourite = styled.section`
     border: none;
     background-color: var(--third-c);
     position: absolute;
-    right: 15px;
-    top: 5px;
+    right: 0.5rem;
+    top: 0.5rem;
     padding: 0;
   }
 
-  .card__fav:hover {
-    background-image: url("");
-    background-size: 100%;
-  }
-
-  .card__fav:focus {
-    background-image: url("");
-    background-size: 100%;
+  .card__fav--new {
+    img {
+      fill: black;
+    }
   }
 `;

@@ -65,7 +65,15 @@ function App() {
             />
           }
         />
-        <Route path='/bookmarks' element={<Bookmarks />} />
+        <Route
+          path='/bookmarks'
+          element={
+            <Bookmarks
+              allFavourites={favourites}
+              onAddToFavourites={addToFavourites}
+            />
+          }
+        />
         <Route path='/new-card' element={<NewCard />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>

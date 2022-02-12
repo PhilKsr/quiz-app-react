@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import bookmark_inactive from "../images/bookmark_inactive.svg";
 import bookmark_active from "../images/bookmark_active.svg";
+import { random } from "../lib/sortRandom";
 
 function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
-  const random = (a, b) => 0.5 * Math.random();
-
   return (
     <>
       {allQuestions?.map((question, index) => (
@@ -86,7 +85,6 @@ const AppCard = styled.section`
     right: 0.5rem;
     top: 0.5rem;
     padding: 0;
-    transform: scale(1.2);
   }
 
   .card__fav--new {
