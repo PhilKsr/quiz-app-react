@@ -48,6 +48,13 @@ const AppFooter = styled.footer`
     display: flex;
     justify-content: center;
     text-decoration: none;
+    opacity: 40%;
+    :focus {
+      opacity: 100%;
+    }
+    :hover {
+      opacity: 100%;
+    }
   }
 
   .footer__list {

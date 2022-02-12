@@ -1,16 +1,26 @@
 import styled from "styled-components";
-import bookmark from "../images/bookmark.svg";
+import bookmark_inactive from "../images/bookmark_inactive.svg";
+import bookmark_active from "../images/bookmark_active.svg";
+import { random } from "../lib/sortRandom";
 
-function Quizcards({ allQuestions }) {
-  const random = (a, b) => 0.5 * Math.random();
-
+function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
   return (
     <>
       {allQuestions?.map((question, index) => (
         <AppCard key={index}>
           <h3 className='card__h2'>Category: {question.category}</h3>
-          <button id='q2' className='card__fav'>
-            <img src={bookmark} />
+          <button
+            className='card__fav card__fav--new'
+            onClick={() => onAddToFavourites(question)}>
+            <img
+              src={
+                allFavourites?.some(
+                  (favQuestion) => favQuestion.question === question.question
+                )
+                  ? bookmark_active
+                  : bookmark_inactive
+              }
+            />
           </button>
           <h4 className='card__h3'>{question.question}</h4>
           <ul className='card__tag'>
@@ -72,13 +82,14 @@ const AppCard = styled.section`
     border: none;
     background-color: var(--third-c);
     position: absolute;
-    right: 15px;
-    top: 5px;
+    right: 0.5rem;
+    top: 0.5rem;
     padding: 0;
   }
 
-  .card__fav:hover {
-    background-image: url("");
-    background-size: 100%;
+  .card__fav--new {
+    img {
+      fill: black;
+    }
   }
 `;

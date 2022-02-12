@@ -1,15 +1,15 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Quizcards from "../components/Quizcards";
-import Bookmarks from "../pages/Bookmarks";
-import NewCard from "../pages/NewCard";
-import Profile from "../pages/Profile";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Quizcards from "./components/Quizcards";
+import Bookmarks from "./pages/Bookmarks";
+import NewCard from "./pages/NewCard";
+import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
 
 function App() {
   const [questions, setQuestions] = useState();
+  const [favourites, setFavourites] = useState([]);
 
   async function initialQuestions() {
     const res = await fetch(
@@ -34,13 +34,46 @@ function App() {
     initialQuestions();
   }, []);
 
+  const addToFavourites = (favQuestion) => {
+    if (
+      favourites.some(
+        (favourite) => favourite.question === favQuestion.question
+      )
+    ) {
+      setFavourites(
+        favourites.filter(
+          (favourite) => favourite.question !== favQuestion.question
+        )
+      );
+    } else {
+      setFavourites([...favourites, favQuestion]);
+    }
+  };
+
   return (
     <div className='App'>
       <Header />
       <Footer />
       <Routes>
-        <Route path='/' element={<Quizcards allQuestions={questions} />} />
-        <Route path='/bookmarks' element={<Bookmarks />} />
+        <Route
+          path='/'
+          element={
+            <Quizcards
+              allQuestions={questions}
+              onAddToFavourites={addToFavourites}
+              allFavourites={favourites}
+            />
+          }
+        />
+        <Route
+          path='/bookmarks'
+          element={
+            <Bookmarks
+              allFavourites={favourites}
+              onAddToFavourites={addToFavourites}
+            />
+          }
+        />
         <Route path='/new-card' element={<NewCard />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
