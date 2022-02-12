@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import noFavouriteBookmark from "../images/nofavbookmark.svg";
-import favouriteBookmark from "../images/favbookmark.svg";
+import bookmark_inactive from "../images/bookmark_inactive.svg";
+import bookmark_active from "../images/bookmark_active.svg";
 
 function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
   const random = (a, b) => 0.5 * Math.random();
@@ -18,8 +18,8 @@ function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
                 allFavourites?.some(
                   (favQuestion) => favQuestion.question === question.question
                 )
-                  ? favouriteBookmark
-                  : noFavouriteBookmark
+                  ? bookmark_active
+                  : bookmark_inactive
               }
             />
           </button>

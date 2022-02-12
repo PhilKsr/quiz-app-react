@@ -1,11 +1,10 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Quizcards from "../components/Quizcards";
-import Bookmarks from "../pages/Bookmarks";
-import NewCard from "../pages/NewCard";
-import Profile from "../pages/Profile";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Quizcards from "./components/Quizcards";
+import Bookmarks from "./pages/Bookmarks";
+import NewCard from "./pages/NewCard";
+import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
 
 function App() {
