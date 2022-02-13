@@ -3,10 +3,10 @@ import bookmark_inactive from "../images/bookmark_inactive.svg";
 import bookmark_active from "../images/bookmark_active.svg";
 import { random } from "../lib/sortRandom";
 
-function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
+function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
   return (
     <>
-      {allQuestions?.map((question, index) => (
+      {allCards?.map((question, index) => (
         <AppCard key={index}>
           <h3 className='card__h2'>Category: {question.category}</h3>
           <button
@@ -14,11 +14,14 @@ function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
             onClick={() => onAddToFavourites(question)}>
             <img
               src={
-                allFavourites?.some(
-                  (favQuestion) => favQuestion.question === question.question
-                )
-                  ? bookmark_active
-                  : bookmark_inactive
+                allFavourites
+                  ? allFavourites?.some(
+                      (favQuestion) =>
+                        favQuestion.question === question.question
+                    )
+                    ? bookmark_active
+                    : bookmark_inactive
+                  : bookmark_active
               }
             />
           </button>
@@ -56,6 +59,10 @@ const AppCard = styled.section`
   color: black;
   box-shadow: 3px 3px 5px #6b6b6b;
   position: relative;
+
+  .card__h2 {
+    max-width: 20rem;
+  }
 
   .card__tag {
     list-style: upper-alpha;

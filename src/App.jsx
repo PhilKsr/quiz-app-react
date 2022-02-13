@@ -59,7 +59,7 @@ function App() {
           path='/'
           element={
             <Quizcards
-              allQuestions={questions}
+              allCards={questions}
               onAddToFavourites={addToFavourites}
               allFavourites={favourites}
             />
@@ -68,8 +68,8 @@ function App() {
         <Route
           path='/bookmarks'
           element={
-            <Bookmarks
-              allFavourites={favourites}
+            <Quizcards
+              allCards={favourites}
               onAddToFavourites={addToFavourites}
             />
           }
