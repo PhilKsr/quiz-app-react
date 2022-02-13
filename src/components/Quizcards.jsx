@@ -2,12 +2,28 @@ import styled from "styled-components";
 import bookmark_inactive from "../images/bookmark_inactive.svg";
 import bookmark_active from "../images/bookmark_active.svg";
 import { random } from "../lib/sortRandom";
+import Modal from "./modal";
+import { useState } from "react";
 
 function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [rateAnswer, setRateAnswer] = useState(false);
+  const onShowAnswer = () => {
+    setShowAnswer(!showAnswer);
+  };
+
+  const onRateAnswer = (answer, index) => {
+    if (answer === allCards[index].answers.correct) {
+      setRateAnswer(true);
+    } else {
+      setRateAnswer(false);
+    }
+  };
+
   return (
     <>
-      {allCards?.map((question, index) => (
-        <AppCard key={index}>
+      {allCards?.map((question, cardIndex) => (
+        <AppCard key={cardIndex}>
           <h3 className='card__h2'>Category: {question.category}</h3>
           <button
             className='card__fav card__fav--new'
@@ -30,9 +46,21 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
             {Object.values(question.answers)
               .sort(random)
               .map((answer, index) => (
-                <li key={index}>{answer}</li>
+                <li
+                  key={index}
+                  onClick={() => {
+                    onShowAnswer();
+                    onRateAnswer(answer, cardIndex);
+                  }}>
+                  {answer}
+                </li>
               ))}
           </ul>
+          {showAnswer && (
+            <Modal onShowAnswer={onShowAnswer}>
+              {rateAnswer ? "correct" : "not correct"}
+            </Modal>
+          )}
         </AppCard>
       ))}
     </>
