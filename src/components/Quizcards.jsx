@@ -56,13 +56,13 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
                 </li>
               ))}
           </ul>
-          {showAnswer && (
-            <Modal onShowAnswer={onShowAnswer}>
-              {rateAnswer ? "correct" : "not correct"}
-            </Modal>
-          )}
         </AppCard>
       ))}
+      {showAnswer && (
+        <Modal onShowAnswer={onShowAnswer}>
+          {rateAnswer ? "correct 🙂" : "not correct 🙁"}
+        </Modal>
+      )}
     </>
   );
 }
