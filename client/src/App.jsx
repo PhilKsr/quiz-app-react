@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [questions, setQuestions] = useState();
   const [favourites, setFavourites] = useState([]);
+  const [addedQuestions, setAddedQuestions] = useState([]);
 
   async function initialQuestions() {
     const res = await fetch(

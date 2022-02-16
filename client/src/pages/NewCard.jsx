@@ -1,64 +1,69 @@
+import { useState } from "react/cjs/react.production.min";
 import styled from "styled-components";
 
 function NewCard() {
+  const initialQuestion = {
+    category: "",
+    question: "",
+    answers: [],
+  };
+  const [questionToAdd, setQuestionToAdd] = useState(initialQuestion);
   return (
-    <AppCreate>
-      <section className='new'>
+    <NewQuestionCard>
+      <form action='' className='new'>
+        <h3> Choose the category:</h3>
+        <select name='category' id=''>
+          <option>-- Choose wisely --</option>
+        </select>
         <h3>Add a new Question:</h3>
         <input
+          value={initialQuestion.question}
           type='text'
           name='new__question'
-          id=''
           className='new__question'
-        />
-        <h3>Add the correct answer:</h3>
-        <input
-          type='text'
-          name='new__explanation'
-          id=''
-          className='new__explanation'
         />
         <h3>Add the possible answers:</h3>
         <label htmlFor='new__answer1'>Correct</label>
         <input
+          value={initialQuestion.answers[0]}
           type='text'
           name='new__answer1'
-          id='correct'
           className='new__answer'
         />
         <label htmlFor='new__answer1'>Wrong</label>
         <input
+          value={initialQuestion.answers[1]}
           type='text'
           name='new__answer2'
-          id='wrong'
           className='new__answer'
         />
         <label htmlFor='new__answer1'>Wrong</label>
         <input
+          value={initialQuestion.answers[2]}
           type='text'
           name='new__answer3'
-          id='wrong'
           className='new__answer'
         />
         <label htmlFor='new__answer1'>Wrong</label>
         <input
+          value={initialQuestion.answers[3]}
           type='text'
           name='new__answer4'
-          id='wrong'
           className='new__answer'
         />
         <button type='submit' className='new__go'>
           Here we go!
         </button>
-      </section>
-    </AppCreate>
+      </form>
+    </NewQuestionCard>
   );
 }
 
 export default NewCard;
 
-const AppCreate = styled.div`
-  margin-top: 100px;
+const NewQuestionCard = styled.section`
+  margin: 7rem 1rem;
+
   .new {
     display: flex;
     flex-direction: column;
