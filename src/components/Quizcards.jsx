@@ -1,37 +1,66 @@
 import styled from "styled-components";
 import bookmark_inactive from "../images/bookmark_inactive.svg";
 import bookmark_active from "../images/bookmark_active.svg";
-import { random } from "../lib/sortRandom";
+import { shuffleArray } from "../lib/shuffleArray";
+import Modal from "./Modal";
+import { useState } from "react";
 
-function Quizcards({ allQuestions, onAddToFavourites, allFavourites }) {
+function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [rateAnswer, setRateAnswer] = useState(false);
+  const onShowAnswer = () => {
+    setShowAnswer(!showAnswer);
+  };
+
+  const onRateAnswer = (answer, index) => {
+    if (answer === allCards[index].answers[0]) {
+      setRateAnswer(true);
+    } else {
+      setRateAnswer(false);
+    }
+  };
+
   return (
     <>
-      {allQuestions?.map((question, index) => (
-        <AppCard key={index}>
-          <h3 className='card__h2'>Category: {question.category}</h3>
+      {allCards?.map((question, cardIndex) => (
+        <AppCard key={cardIndex}>
+          <h3 className='card__h2'>Category {question.category}</h3>
           <button
             className='card__fav card__fav--new'
             onClick={() => onAddToFavourites(question)}>
             <img
               src={
-                allFavourites?.some(
-                  (favQuestion) => favQuestion.question === question.question
-                )
-                  ? bookmark_active
-                  : bookmark_inactive
+                allFavourites
+                  ? allFavourites?.some(
+                      (favQuestion) =>
+                        favQuestion.question === question.question
+                    )
+                    ? bookmark_active
+                    : bookmark_inactive
+                  : bookmark_active
               }
             />
           </button>
           <h4 className='card__h3'>{question.question}</h4>
           <ul className='card__tag'>
-            {Object.values(question.answers)
-              .sort(random)
-              .map((answer, index) => (
-                <li key={index}>{answer}</li>
-              ))}
+            {shuffleArray(question.answers).map((answer, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  onShowAnswer();
+                  onRateAnswer(answer, cardIndex);
+                }}>
+                {answer}
+              </li>
+            ))}
           </ul>
         </AppCard>
       ))}
+      {showAnswer && (
+        <Modal onShowAnswer={onShowAnswer}>
+          {rateAnswer ? "correct 🙂" : "not correct 🙁"}
+        </Modal>
+      )}
     </>
   );
 }
@@ -56,6 +85,10 @@ const AppCard = styled.section`
   color: black;
   box-shadow: 3px 3px 5px #6b6b6b;
   position: relative;
+
+  .card__h2 {
+    max-width: 20rem;
+  }
 
   .card__tag {
     list-style: upper-alpha;

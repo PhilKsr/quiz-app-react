@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Quizcards from "./components/Quizcards";
-import Bookmarks from "./pages/Bookmarks";
 import NewCard from "./pages/NewCard";
 import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
@@ -20,12 +19,12 @@ function App() {
       return {
         category: oneQuestion.category,
         question: oneQuestion.question,
-        answers: {
-          correct: oneQuestion.correct_answer,
-          incorrectFirst: oneQuestion.incorrect_answers[0],
-          incorrectSecond: oneQuestion.incorrect_answers[1],
-          incorrectThird: oneQuestion.incorrect_answers[2],
-        },
+        answers: [
+          oneQuestion.correct_answer,
+          oneQuestion.incorrect_answers[0],
+          oneQuestion.incorrect_answers[1],
+          oneQuestion.incorrect_answers[2],
+        ],
       };
     });
     setQuestions(questionPromises);
@@ -59,7 +58,7 @@ function App() {
           path='/'
           element={
             <Quizcards
-              allQuestions={questions}
+              allCards={questions}
               onAddToFavourites={addToFavourites}
               allFavourites={favourites}
             />
@@ -68,8 +67,8 @@ function App() {
         <Route
           path='/bookmarks'
           element={
-            <Bookmarks
-              allFavourites={favourites}
+            <Quizcards
+              allCards={favourites}
               onAddToFavourites={addToFavourites}
             />
           }
