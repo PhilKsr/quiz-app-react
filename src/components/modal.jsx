@@ -1,18 +1,19 @@
 import styled from "styled-components";
+import check_circle from "../images/check_circle.svg";
 
 export default function Modal({ onShowAnswer, children }) {
   return (
-    <Modalwrapper>
+    <>
       <Background onClick={onShowAnswer}></Background>
       <StyledModal>
         <h2>Answer is {children}</h2>
-        <button onClick={onShowAnswer}>okay!</button>
+        <button onClick={onShowAnswer}>
+          <img src={check_circle} alt='Okay!' />
+        </button>
       </StyledModal>
-    </Modalwrapper>
+    </>
   );
 }
-
-const Modalwrapper = styled.div``;
 
 const StyledModal = styled.div`
   position: fixed;

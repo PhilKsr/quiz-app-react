@@ -19,12 +19,12 @@ function App() {
       return {
         category: oneQuestion.category,
         question: oneQuestion.question,
-        answers: {
-          correct: oneQuestion.correct_answer,
-          incorrectFirst: oneQuestion.incorrect_answers[0],
-          incorrectSecond: oneQuestion.incorrect_answers[1],
-          incorrectThird: oneQuestion.incorrect_answers[2],
-        },
+        answers: [
+          oneQuestion.correct_answer,
+          oneQuestion.incorrect_answers[0],
+          oneQuestion.incorrect_answers[1],
+          oneQuestion.incorrect_answers[2],
+        ],
       };
     });
     setQuestions(questionPromises);

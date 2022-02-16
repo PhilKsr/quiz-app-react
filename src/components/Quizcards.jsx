@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import bookmark_inactive from "../images/bookmark_inactive.svg";
 import bookmark_active from "../images/bookmark_active.svg";
-import { random } from "../lib/sortRandom";
-import Modal from "./modal";
+import { shuffleArray } from "../lib/shuffleArray";
+import Modal from "./Modal";
 import { useState } from "react";
 
 function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
@@ -13,7 +13,7 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
   };
 
   const onRateAnswer = (answer, index) => {
-    if (answer === allCards[index].answers.correct) {
+    if (answer === allCards[index].answers[0]) {
       setRateAnswer(true);
     } else {
       setRateAnswer(false);
@@ -24,7 +24,7 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
     <>
       {allCards?.map((question, cardIndex) => (
         <AppCard key={cardIndex}>
-          <h3 className='card__h2'>Category: {question.category}</h3>
+          <h3 className='card__h2'>Category {question.category}</h3>
           <button
             className='card__fav card__fav--new'
             onClick={() => onAddToFavourites(question)}>
@@ -43,18 +43,16 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
           </button>
           <h4 className='card__h3'>{question.question}</h4>
           <ul className='card__tag'>
-            {Object.values(question.answers)
-              .sort(random)
-              .map((answer, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    onShowAnswer();
-                    onRateAnswer(answer, cardIndex);
-                  }}>
-                  {answer}
-                </li>
-              ))}
+            {shuffleArray(question.answers).map((answer, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  onShowAnswer();
+                  onRateAnswer(answer, cardIndex);
+                }}>
+                {answer}
+              </li>
+            ))}
           </ul>
         </AppCard>
       ))}
