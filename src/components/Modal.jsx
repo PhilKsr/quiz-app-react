@@ -1,19 +1,21 @@
 import styled from "styled-components";
-import checkCircle from "../images/checkCircle.svg";
+import checked_circle from "../images/check_circle.svg";
 
 export default function Modal({ onShowAnswer, children }) {
   return (
-    <Modalwrapper>
+    <>
       <Background onClick={onShowAnswer}></Background>
       <StyledModal>
-        <h2>Answer is {children}</h2>
-        <button onClick={onShowAnswer}>{checkCircle}</button>
+        <div>
+          <h2>Answer is {children}</h2>
+          <button onClick={onShowAnswer}>
+            <img src={checked_circle} alt='Okay!' />
+          </button>
+        </div>
       </StyledModal>
-    </Modalwrapper>
+    </>
   );
 }
-
-const Modalwrapper = styled.div``;
 
 const StyledModal = styled.div`
   position: fixed;
@@ -25,6 +27,17 @@ const StyledModal = styled.div`
   width: 50%;
   border-radius: 15px;
   background-color: var(--third-c);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    border: none;
+    background: none;
+  }
 
   h2 {
     text-align: center;
