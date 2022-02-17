@@ -28,6 +28,9 @@ db.once("open", function (callback) {
 
 server.use("/api", QuestionsRoutes);
 
+// Static assets
+server.use(express.static(path.join(__dirname, "../client/dist")));
+
 server.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
