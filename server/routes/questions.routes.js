@@ -5,8 +5,8 @@ import {
 } from "../controllers/questions.controller.js";
 
 const router = express.Router();
-router.get("/question", getQuestions);
+router.get("/questions", getQuestions);
 
-router.post("/question", postQuestion);
+router.post("/questions", postQuestion);
 
 export default router;
