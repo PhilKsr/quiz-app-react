@@ -8,13 +8,11 @@ import { useState, useEffect } from "react";
 import { loadFromLocal, saveToLocal } from "./lib/localStorage";
 
 function App() {
-  const initialAddedQuestions = loadFromLocal("_newQuestions") ?? [];
-
-  const [questions, setQuestions] = useState();
+  const [questions, setQuestions] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [addedQuestions, setAddedQuestions] = useState([]);
 
-  async function initialQuestions() {
+  const getInitialQuestions = async () => {
     const res = await fetch(
       "https://opentdb.com/api.php?amount=15&difficulty=easy&type=multiple"
     );
@@ -31,11 +29,15 @@ function App() {
         ],
       };
     });
-    const result = questionPromises.concat(initialAddedQuestions);
+    const resAdded = await fetch("http://localhost:5000/api/question");
+    const dataAdded = await resAdded.json();
+
+    const result = questionPromises.concat(dataAdded);
     setQuestions(result);
-  }
+  };
+
   useEffect(() => {
-    initialQuestions();
+    getInitialQuestions();
   }, []);
 
   const addToFavourites = (favQuestion) => {
@@ -59,8 +61,7 @@ function App() {
   };
 
   useEffect(() => {
-    saveToLocal("_newQuestions", addedQuestions);
-    initialQuestions();
+    getInitialQuestions();
   }, [addedQuestions]);
 
   return (
