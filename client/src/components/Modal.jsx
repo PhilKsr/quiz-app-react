@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import checked_circle from "../images/check_circle.svg";
 
-export default function Modal({ onShowAnswer, children }) {
+function Modal({ onShowAnswer, children }) {
   return (
     <>
       <Background onClick={onShowAnswer}></Background>
@@ -11,6 +11,8 @@ export default function Modal({ onShowAnswer, children }) {
     </>
   );
 }
+
+export default Modal;
 
 const StyledModal = styled.div`
   position: fixed;
