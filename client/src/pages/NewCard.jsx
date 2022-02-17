@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SelectMenu from "../components/Select";
 import TextInput from "../components/TextInput";
 
-function NewCard({ onAddQuestion }) {
+function NewCard({ onAddQuestion, allQuestions }) {
   const initialQuestion = {
     category: "",
     question: "",
@@ -45,7 +45,7 @@ function NewCard({ onAddQuestion }) {
     <NewQuestionCard>
       <form className='new' onSubmit={handleSubmit}>
         <h3>Add a new question-card</h3>
-        <SelectMenu onSelectChange={handleChange} />
+        <SelectMenu onSelectChange={handleChange} allQuestions={allQuestions} />
 
         <TextInput
           value={questionToAdd.question}

@@ -102,7 +102,9 @@ function App() {
         />
         <Route
           path='/new-card'
-          element={<NewCard onAddQuestion={addQuestion} />}
+          element={
+            <NewCard onAddQuestion={addQuestion} allQuestions={questions} />
+          }
         />
         <Route path='/profile' element={<Profile />} />
       </Routes>
