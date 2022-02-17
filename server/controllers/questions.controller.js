@@ -1,4 +1,4 @@
-import Question from "../models/questions.model";
+import Question from "../models/questions.model.js";
 
 const getQuestions = async (req, res) => {
   const results = await Question.find();

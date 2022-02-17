@@ -6,6 +6,6 @@ const questionSchema = new mongoose.Schema({
   answers: { type: Array, required: true },
 });
 
-const Question = mongoose.model("TriviaQuestions", questionSchema);
+const Question = mongoose.model("trivia_questions", questionSchema);
 
 export default Question;
