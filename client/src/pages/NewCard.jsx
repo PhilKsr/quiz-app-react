@@ -1,5 +1,6 @@
-import { useState } from "react/cjs/react.production.min";
+import { useState } from "react";
 import styled from "styled-components";
+import TextInput from "../components/TextInput";
 
 function NewCard() {
   const initialQuestion = {
@@ -8,49 +9,33 @@ function NewCard() {
     answers: [],
   };
   const [questionToAdd, setQuestionToAdd] = useState(initialQuestion);
+
   return (
     <NewQuestionCard>
-      <form action='' className='new'>
+      <form className='new'>
         <h3> Choose the category:</h3>
-        <select name='category' id=''>
+        <select name='category'>
           <option>-- Choose wisely --</option>
         </select>
-        <h3>Add a new Question:</h3>
-        <input
-          value={initialQuestion.question}
-          type='text'
-          name='new__question'
-          className='new__question'
-        />
+
+        <TextInput value={questionToAdd.question} name='question'>
+          Add new question
+        </TextInput>
+
         <h3>Add the possible answers:</h3>
-        <label htmlFor='new__answer1'>Correct</label>
-        <input
-          value={initialQuestion.answers[0]}
-          type='text'
-          name='new__answer1'
-          className='new__answer'
-        />
-        <label htmlFor='new__answer1'>Wrong</label>
-        <input
-          value={initialQuestion.answers[1]}
-          type='text'
-          name='new__answer2'
-          className='new__answer'
-        />
-        <label htmlFor='new__answer1'>Wrong</label>
-        <input
-          value={initialQuestion.answers[2]}
-          type='text'
-          name='new__answer3'
-          className='new__answer'
-        />
-        <label htmlFor='new__answer1'>Wrong</label>
-        <input
-          value={initialQuestion.answers[3]}
-          type='text'
-          name='new__answer4'
-          className='new__answer'
-        />
+        <TextInput value={questionToAdd.answers[0]} name='answer'>
+          Correct answer
+        </TextInput>
+        <TextInput value={questionToAdd.answers[1]} name='answer'>
+          Wrong answer
+        </TextInput>
+        <TextInput value={questionToAdd.answers[2]} name='answer'>
+          Wrong answer
+        </TextInput>
+        <TextInput value={questionToAdd.answers[3]} name='answer'>
+          Wrong answer
+        </TextInput>
+
         <button type='submit' className='new__go'>
           Here we go!
         </button>
@@ -98,11 +83,6 @@ const NewQuestionCard = styled.section`
   .new__go:active {
     transform: scale(1.2);
     transition: transform 0.2s ease;
-  }
-
-  .new__answer {
-    margin-bottom: 10px;
-    width: 100px;
   }
 
   .new input:focus {
