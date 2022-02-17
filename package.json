@@ -9,7 +9,7 @@
         "server": "nodemon server/server.js",
         "client": "cd ./client && npm run dev",
         "start": "node server/server.js",
-        "postinstall": "cd ./client && npm install && cd ../server && npm install"
+        "postinstall": "cd ./client && npm install && npm run build && cd ../server && npm install"
     },
     "author": "",
     "license": "ISC",
