@@ -1,8 +1,8 @@
-function TextInput({ value, name, children }) {
+function TextInput({ value, name, children, onInputChange }) {
   return (
     <>
-      <label htmlfor={name}>{children}</label>
-      <input value={value} type='text' name={name} />
+      <label htmlFor={name}>{children}</label>
+      <input value={value} type='text' name={name} onChange={onInputChange} />
     </>
   );
 }

@@ -5,8 +5,11 @@ import Quizcards from "./components/Quizcards";
 import NewCard from "./pages/NewCard";
 import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
+import { loadFromLocal, saveToLocal } from "./lib/localStorage";
 
 function App() {
+  const initialAddedQuestions = loadFromLocal("_newQuestions") ?? [];
+
   const [questions, setQuestions] = useState();
   const [favourites, setFavourites] = useState([]);
   const [addedQuestions, setAddedQuestions] = useState([]);
@@ -28,7 +31,8 @@ function App() {
         ],
       };
     });
-    setQuestions(questionPromises);
+    const result = questionPromises.concat(initialAddedQuestions);
+    setQuestions(result);
   }
   useEffect(() => {
     initialQuestions();
@@ -49,6 +53,15 @@ function App() {
       setFavourites([...favourites, favQuestion]);
     }
   };
+
+  const addQuestion = (newQuestion) => {
+    setAddedQuestions([...addedQuestions, newQuestion]);
+  };
+
+  useEffect(() => {
+    saveToLocal("_newQuestions", addedQuestions);
+    initialQuestions();
+  }, [addedQuestions]);
 
   return (
     <div className='App'>
@@ -74,7 +87,10 @@ function App() {
             />
           }
         />
-        <Route path='/new-card' element={<NewCard />} />
+        <Route
+          path='/new-card'
+          element={<NewCard onAddQuestion={addQuestion} />}
+        />
         <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>

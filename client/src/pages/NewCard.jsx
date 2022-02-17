@@ -1,38 +1,86 @@
 import { useState } from "react";
 import styled from "styled-components";
+import SelectMenu from "../components/Select";
 import TextInput from "../components/TextInput";
 
-function NewCard() {
+function NewCard({ onAddQuestion }) {
   const initialQuestion = {
     category: "",
     question: "",
-    answers: [],
+    answers: { correct: "", wrongOne: "", wrongTwo: "", wrongThree: "" },
   };
   const [questionToAdd, setQuestionToAdd] = useState(initialQuestion);
 
+  const handleChange = (event) => {
+    setQuestionToAdd({
+      ...questionToAdd,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleAnswerChange = (event) => {
+    const temporaryAnswers = {
+      ...questionToAdd.answers,
+      [event.target.name]: event.target.value,
+    };
+    setQuestionToAdd({ ...questionToAdd, answers: temporaryAnswers });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newQuestion = {
+      ...questionToAdd,
+      answers: [
+        questionToAdd.answers.correct,
+        questionToAdd.answers.wrongOne,
+        questionToAdd.answers.wrongTwo,
+        questionToAdd.answers.wrongThree,
+      ],
+    };
+    onAddQuestion(newQuestion);
+    setQuestionToAdd(initialQuestion);
+  };
+
   return (
     <NewQuestionCard>
-      <form className='new'>
-        <h3> Choose the category:</h3>
-        <select name='category'>
-          <option>-- Choose wisely --</option>
-        </select>
+      <form className='new' onSubmit={handleSubmit}>
+        <h3>Add a new question-card</h3>
+        <SelectMenu onSelectChange={handleChange} />
 
-        <TextInput value={questionToAdd.question} name='question'>
-          Add new question
+        <TextInput
+          value={questionToAdd.question}
+          name='question'
+          onInputChange={handleChange}
+          required>
+          Question
         </TextInput>
 
-        <h3>Add the possible answers:</h3>
-        <TextInput value={questionToAdd.answers[0]} name='answer'>
+        <TextInput
+          value={questionToAdd.answers.correct}
+          name={Object.keys(questionToAdd.answers)[0]}
+          onInputChange={handleAnswerChange}
+          required>
           Correct answer
         </TextInput>
-        <TextInput value={questionToAdd.answers[1]} name='answer'>
+        <TextInput
+          value={questionToAdd.answers.wrongOne}
+          name={Object.keys(questionToAdd.answers)[1]}
+          onInputChange={handleAnswerChange}
+          required>
           Wrong answer
         </TextInput>
-        <TextInput value={questionToAdd.answers[2]} name='answer'>
+        <TextInput
+          value={questionToAdd.answers.wrongTwo}
+          name={Object.keys(questionToAdd.answers)[2]}
+          onInputChange={handleAnswerChange}
+          required>
           Wrong answer
         </TextInput>
-        <TextInput value={questionToAdd.answers[3]} name='answer'>
+        <TextInput
+          value={questionToAdd.answers.wrongThree}
+          name={Object.keys(questionToAdd.answers)[3]}
+          onInputChange={handleAnswerChange}
+          required>
           Wrong answer
         </TextInput>
 
