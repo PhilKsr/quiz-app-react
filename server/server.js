@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import QuestionsRoutes from "./routes/questions.routes.js";
 import { dirname } from "./lib/pathHelpers.js";
+import path from "path";
 
 const __dirname = dirname(import.meta.url);
 
