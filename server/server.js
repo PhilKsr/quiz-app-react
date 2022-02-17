@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import questionsRoutes from "./routes/questions.routes.js";
+import QuestionsRoutes from "./routes/questions.routes.js";
 
 dotenv.config();
 const dbUser = process.env.DB_USER;
@@ -26,7 +26,11 @@ db.once("open", function (callback) {
   console.log("Mongodb connection succeeded");
 });
 
-server.use("/api", questionsRoutes);
+server.use("/api", QuestionsRoutes);
+
+server.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+});
 
 server.listen(serverPort, () =>
   console.log(`Server is up and running on port ${serverPort}`)
