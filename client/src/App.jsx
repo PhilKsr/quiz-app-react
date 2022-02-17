@@ -36,6 +36,17 @@ function App() {
     setQuestions(result);
   };
 
+  const saveNewQuestion = async (newQuestion) => {
+    const result = await fetch("http://localhost:5000/api/question", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newQuestion),
+    });
+    return await result.json();
+  };
+
   useEffect(() => {
     getInitialQuestions();
   }, []);
@@ -58,6 +69,7 @@ function App() {
 
   const addQuestion = (newQuestion) => {
     setAddedQuestions([...addedQuestions, newQuestion]);
+    saveNewQuestion(newQuestion);
   };
 
   useEffect(() => {
@@ -99,5 +111,3 @@ function App() {
 }
 
 export default App;
-
-//https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple QUIZ API
