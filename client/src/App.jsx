@@ -29,7 +29,7 @@ function App() {
         ],
       };
     });
-    const resAdded = await fetch("http://localhost:5000/api/question");
+    const resAdded = await fetch("/api");
     const dataAdded = await resAdded.json();
 
     const result = questionPromises.concat(dataAdded);
@@ -37,7 +37,7 @@ function App() {
   };
 
   const saveNewQuestion = async (newQuestion) => {
-    const result = await fetch("http://localhost:5000/api/question", {
+    const result = await fetch("/api", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
