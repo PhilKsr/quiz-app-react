@@ -5,7 +5,6 @@ import Quizcards from "./components/Quizcards";
 import NewCard from "./pages/NewCard";
 import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
-import { loadFromLocal, saveToLocal } from "./lib/localStorage";
 
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -29,7 +28,7 @@ function App() {
         ],
       };
     });
-    const resAdded = await fetch("/api");
+    const resAdded = await fetch("/api/questions");
     const dataAdded = await resAdded.json();
 
     const result = questionPromises.concat(dataAdded);
@@ -37,7 +36,7 @@ function App() {
   };
 
   const saveNewQuestion = async (newQuestion) => {
-    const result = await fetch("/api", {
+    const result = await fetch("/api/questions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
