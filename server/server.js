@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import QuestionsRoutes from "./routes/questions.routes.js";
+import { dirname } from "./lib/pathHelpers.js";
+
+const __dirname = dirname(import.meta.url);
 
 dotenv.config();
 const dbUser = process.env.DB_USER;
