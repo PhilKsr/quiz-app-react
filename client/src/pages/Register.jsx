@@ -45,9 +45,7 @@ function Register() {
         onInputChange={handleChange}>
         Password
       </TextInput>
-      <button type='submit'>
-        <a href='/profile'>Register</a>
-      </button>
+      <button type='submit'>Register</button>
     </RegisterForm>
   );
 }
