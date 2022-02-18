@@ -5,7 +5,7 @@ import add from "../images/add.svg";
 import person from "../images/person.svg";
 import star from "../images/star.svg";
 
-function Footer() {
+function Footer({ loggedIn }) {
   return (
     <AppFooter className='footer'>
       <nav className='footer__navbar'>
@@ -20,11 +20,13 @@ function Footer() {
               <img src={star} className='footer__icon2' />
             </NavLink>
           </li>
-          <li>
-            <NavLink to='new-card'>
-              <img src={add} className='footer__icon3' />
-            </NavLink>
-          </li>
+          {loggedIn && (
+            <li>
+              <NavLink to='new-card'>
+                <img src={add} className='footer__icon3' />
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink to='profile'>
               <img src={person} className='footer__icon4' />
@@ -60,15 +62,12 @@ const AppFooter = styled.footer`
   .footer__list {
     background-color: var(--primary);
     display: flex;
+    justify-content: space-around;
     align-items: center;
     list-style: none;
     height: 70px;
     margin: 0;
     padding: 0;
     font-size: 20px;
-  }
-
-  .footer__list li {
-    width: 25%;
   }
 `;

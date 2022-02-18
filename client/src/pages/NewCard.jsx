@@ -132,14 +132,4 @@ const NewQuestionCard = styled.section`
     transform: scale(1.2);
     transition: transform 0.2s ease;
   }
-
-  .new input:focus {
-    border: 2px solid var(--correct-c);
-    border-radius: 5px;
-    outline: none;
-  }
-
-  label {
-    padding-top: 5px;
-  }
 `;

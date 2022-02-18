@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
-function Profile() {
+function Profile({ onHandleLogout }) {
   return (
     <AppProfile>
       <section className='profile'>
         <div className='profile__me'>
-          <img src='' alt='Hier könntest du stehen' className='profile__pic' />
-          <h3>Philipp Kaiser</h3>
+          <h2>Welcome Jane/ John</h2>
         </div>
         <h4>About:</h4>
         <p className='profile__about'>
@@ -17,12 +16,12 @@ function Profile() {
         </p>
         <h4>Skills:</h4>
         <ul className='profile__skills'>
-          <li>Essen</li>
-          <li>Schlafen</li>
-          <li>Coden</li>
-          <li>Sporten</li>
+          <li>Eat</li>
+          <li>Sleep</li>
+          <li>Code</li>
+          <li>Sports</li>
         </ul>
-        <button type='submit' className='profile__logout'>
+        <button className='profile__logout' onClick={onHandleLogout}>
           LOGOUT
         </button>
       </section>
@@ -33,7 +32,7 @@ function Profile() {
 export default Profile;
 
 const AppProfile = styled.div`
-  margin-top: 100px;
+  margin: 7rem 1rem;
 
   .profile {
     display: flex;

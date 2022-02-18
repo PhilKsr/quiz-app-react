@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import QuestionsRoutes from "./routes/questions.routes.js";
+import UsersRoutes from "./routes/users.routes.js";
 import { dirname } from "./lib/pathHelpers.js";
 import path from "path";
 
@@ -30,7 +31,7 @@ db.once("open", function (callback) {
   console.log("Mongodb connection succeeded");
 });
 
-server.use("/api", QuestionsRoutes);
+server.use("/api", [QuestionsRoutes, UsersRoutes]);
 
 // Static assets
 server.use(express.static(path.join(__dirname, "../client/dist")));

@@ -5,11 +5,18 @@ import Quizcards from "./components/Quizcards";
 import NewCard from "./pages/NewCard";
 import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [questions, setQuestions] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [addedQuestions, setAddedQuestions] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setLoggedIn(!loggedIn);
+  };
 
   const getInitialQuestions = async () => {
     const res = await fetch(
@@ -78,7 +85,7 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      <Footer />
+      <Footer loggedIn={loggedIn} />
       <Routes>
         <Route
           path='/'
@@ -105,7 +112,17 @@ function App() {
             <NewCard onAddQuestion={addQuestion} allQuestions={questions} />
           }
         />
-        <Route path='/profile' element={<Profile />} />
+        <Route
+          path='/profile'
+          element={
+            loggedIn ? (
+              <Profile onHandleLogout={handleLogin} />
+            ) : (
+              <Login onHandleLogin={handleLogin} />
+            )
+          }
+        />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </div>
   );
