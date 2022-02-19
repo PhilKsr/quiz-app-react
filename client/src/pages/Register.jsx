@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-
 import TextInput from "../components/TextInput";
 
 function Register() {
