@@ -20,11 +20,19 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
     }
   };
 
+  function decodeHtmlChars(inputStr) {
+    var textarea = document.createElement("textarea");
+    textarea.innerHTML = inputStr;
+    return textarea.value;
+  }
+
   return (
     <>
       {allCards?.map((question, cardIndex) => (
         <AppCard key={cardIndex}>
-          <h3 className='card__h2'>Category {question.category}</h3>
+          <h3 className='card__h2'>
+            Category {decodeHtmlChars(question.category)}
+          </h3>
           <button
             className='card__fav card__fav--new'
             onClick={() => onAddToFavourites(question)}>
@@ -41,7 +49,7 @@ function Quizcards({ allCards, onAddToFavourites, allFavourites }) {
               }
             />
           </button>
-          <h4 className='card__h3'>{question.question}</h4>
+          <h4 className='card__h3'>{decodeHtmlChars(question.question)}</h4>
           <ul className='card__tag'>
             {shuffleArray(question.answers).map((answer, index) => (
               <li
